@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #2ecc7ac1;
+        }
+
+        .confetti-container {
+            position: relative;
+            height: 200px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            animation: confetti-fall 2s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(200px) rotate(720deg);
+            }
+        }
+
+        /* Additional styles for scattering confetti */
+        .confetti:nth-child(2) {
+            left: 20%;
+            animation-delay: 0.2s;
+        }
+
+        .confetti:nth-child(3) {
+            left: 40%;
+            animation-delay: 0.4s;
+        }
+
+        .confetti:nth-child(4) {
+            left: 60%;
+            animation-delay: 0.6s;
+        }
+
+        .confetti:nth-child(5) {
+            left: 80%;
+            animation-delay: 0.8s;
+        }
+
+        /* Add more styles for additional confetti pieces */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>Your action was successful.</p>
+        <p>Enjoy the confetti!</p>
+        <div class="confetti-container">
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+    </div>
+</body>
+
+</html>

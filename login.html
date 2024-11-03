@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content ="width-device-width , intial-scale=1.0">
+        <link rel="stylesheet" href="/style">
+        <title>LogIn</title>
+
+        
+    </head>
+    <body>
+    </br>
+    <img src="https://drive.google.com/file/d/1xHZ9J8vARtkB5UHvjGk8T3H_GOU-lRUX/view?usp=sharing" width="130" height="130" ALIGN=left>
+        <div class="topnav">
+            
+            <button class="redirectButtonJobs" onclick="window.location.href='/jobs'">Jobs</button>
+    
+            <button class="redirectButtoncontact" onclick="window.location.href='/contact'">Contact-Us</button>
+    
+            <button class="redirectButtonservices" onclick="window.location.href='/services'">Services</button>
+    
+            <button class="login-container" onclick="window.location.href='/login'">Login</button>
+    
+            <button class="register-container" onclick="window.location.href='/register'">Register</button>
+          </div>
+    
+    
+        <div class="container" id ="container" >
+            <div class=" form-container register">
+                <form action="/login" method="POST">
+                    <h1>Log In</h1>
+                    <label for="name">User Name:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+                    <button>Login</button>
+
+
+                </form>
+            </div>
+            <div class="toggle-container">
+                <div class="toggle">
+                    <div class="toggle-panel">
+                        <h1>Hi Friend !</h1>
+                        <p> Register as a new user to use all the features </p>
+                        <button class="hidden" onclick="window.location.href='/register'">Register</button>
+
+                    </div>
+                </div>
+            </div>
+</div>
+    </body>
+</html>

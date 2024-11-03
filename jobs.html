@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Jobs</title>
+    <link rel="stylesheet" type="text/css" href="/style">
+</head>
+<body>
+    <br>
+    <img src="https://drive.google.com/file/d/1xHZ9J8vARtkB5UHvjGk8T3H_GOU-lRUX/view?usp=sharing" width="130" height="130" ALIGN=left>
+        <div class="topnav">
+            <button class="redirectButtonJobs" onclick="window.location.href='/jobs'">Jobs</button>
+    
+            <button class="redirectButtoncontact" onclick="window.location.href='/contact'">Contact-Us</button>
+    
+            <button class="redirectButtonservices" onclick="window.location.href='/services'">Services</button>
+    
+            <button class="login-container" onclick="window.location.href='/login'">Login</button>
+    
+            <button class="register-container" onclick="window.location.href='/register'">Register</button>
+          </div>
+    <br>
+    <h1>Available Jobs</h1>
+
+    <br>
+
+    <div id="jobsList" class="job-container"></div>
+
+    <script>
+        fetch('/view-job-description')
+            .then(response => response.json())
+            .then(jobs => {
+                const jobsList = document.getElementById('jobsList');
+                jobs.forEach(job => {
+                    const jobCard = `
+                        <div class="job-card">
+                            <header>
+                                <h2>${job.jobTitle}</h2>
+                                <h3>${job.companyName}</h3>
+                                <p><strong>Company Address:</strong> ${job.companyAddress}</p>
+                                <p><strong>Job Type:</strong> ${job.jobType}</p>
+                            </header>
+                            <div>
+                                <p>${job.jobDescription}</p>
+                                <button onclick="applyNow('${job.jobId}')" class="apply-btn">Apply Now</button>
+                            </div>
+                        </div>
+                    `;
+                    jobsList.innerHTML += jobCard;
+                });
+            })
+            .catch(error => console.error('Error fetching jobs:', error));
+
+        function applyNow(jobId) {
+            window.location.href = `/apply-now?jobId=${jobId}`;
+        }
+    </script>
+</body>
+</html>

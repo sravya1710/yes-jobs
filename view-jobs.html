@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Details</title>
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: 'Montserrat',sans-serif;
+                margin: 0;
+    padding: 0;
+    background-color: #6b86dd;
+    background: linear-gradient(to right,#e2e2e2,#6b86dd);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e5e5e5;
+}
+
+
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <h1>Applicant Details</h1>
+    <table id="applicantTable">
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>Resume Link</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>Experience</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <!-- JavaScript code to fetch applicant details and update the table -->
+    <script>
+        fetch('/view-jobs') // Assuming this is the route to fetch applicant details
+            .then(response => response.json())
+            .then(data => {
+                const applicantTable = document.getElementById('applicantTable');
+                const tbody = applicantTable.querySelector('tbody');
+
+                data.forEach(applicant => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${applicant.jobId}</td>
+                        <td>${applicant.resumeLink}</td>
+                        <td>${applicant.fullName}</td>
+                        <td>${applicant.phoneNumber}</td>
+                        <td>${applicant.address}</td>
+                        <td>${applicant.date}</td>
+                        <td>${applicant.experience}</td>
+                        <td>${applicant.salary}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error('Error fetching applicants:', error));
+    </script>
+</body>
+</html>

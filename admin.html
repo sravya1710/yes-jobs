@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* CSS styles */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #6b86dd;
+            background: linear-gradient(to right, #e2e2e2, #6b86dd);
+        }
+
+        h1 {
+            font-size: 200%;
+            text-align: center;
+            color: black;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #jobList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .job-card header {
+            background-color: #512da8;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .job-card h2,
+        .job-card h3,
+        .job-card p {
+            margin: 0;
+        }
+
+        .job-card div {
+            padding: 10px;
+        }
+
+        .apply-btn {
+            background-color: #512da8;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .apply-btn {
+            background-color: #7a61b4;
+        }
+
+        .apply-btn:hover {
+            background-color: #7a61b4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div id="jobList"></div>
+
+    <script>
+        // Fetch all jobs from the server and populate the HTML page
+        async function fetchAllJobs() {
+            try {
+                const response = await fetch('/admin/jobs');
+                const jobs = await response.json();
+                const jobList = document.getElementById('jobList');
+
+                jobList.innerHTML = ''; // Clear previous data
+
+                jobs.forEach(job => {
+                    const jobInfo = `
+                        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                            <p><strong>Job ID:</strong> ${job.jobId}</p>
+                            <p><strong>Company Name:</strong> ${job.companyName}</p>
+                            <p><strong>Job Title:</strong> ${job.jobTitle}</p>
+                            <p><strong>Status:</strong> ${job.status}</p>
+                            <button onclick="approveJob(${job.jobId})">Approve</button>
+                            <button onclick="denyJob(${job.jobId})">Deny</button>
+                        </div>
+                    `;
+                    jobList.innerHTML += jobInfo;
+                });
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+            }
+        }
+        async function approveJob(jobId) {
+            try {
+                const response = await fetch(`/admin/approve-job/${jobId}`, { method: 'PUT' });
+                if (response.ok) {
+                    console.log('Job approved successfully');
+                    fetchAllJobs(); // Refresh job list after approval
+                } else {
+                    console.error('Failed to approve job');
+                }
+            } catch (error) {
+                console.error('Error approving job:', error);
+            }
+        }
+
+        // Deny a job
+        async function denyJob(jobId) {
+            try {
+                const response = await fetch(`/admin/deny/${jobId}`, { method: 'POST' });
+                if (response.ok) {
+                    console.log('Job denied successfully');
+                    fetchAllJobs(); // Refresh job list after denial
+                } else {
+                    console.error('Failed to deny job');
+                }
+            } catch (error) {
+                console.error('Error denying job:', error);
+            }
+        }
+
+        // Call fetchAllJobs function when the page loads
+        window.onload = fetchAllJobs;
+    </script>
+</body>
+</html>

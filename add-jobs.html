@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Job</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6b86dd;
+    background: linear-gradient(to right, #e2e2e2, #6b86dd);
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    font-size: 18px;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #512da8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #4527a0;
+}
+
+.success-message {
+    margin-top: 20px;
+    color: #28a745;
+    font-size: 20px;
+    text-align: center;
+}
+
+.error-message {
+    margin-top: 20px;
+    color: #dc3545;
+    font-size: 20px;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Add New Job</h1>
+    <form id="addJobForm">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required><br>
+        <label for="companyAddress">Company Address:</label>
+        <input type="text" id="companyAddress" name="companyAddress" required><br>
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" required><br>
+        <label for="jobDescription">Job Description:</label>
+        <textarea id="jobDescription" name="jobDescription" required></textarea><br>
+        <label for="jobType">Job Type:</label>
+        <select id="jobType" name="jobType" required>
+            <option value="full-time">Full Time</option>
+            <option value="part-time">Part Time</option>
+        </select><br>
+        <button type="submit">Add Job</button>
+    </form>
+</div>
+    <script>
+        document.getElementById('addJobForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const companyName = document.getElementById('companyName').value;
+            const companyAddress = document.getElementById('companyAddress').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const jobDescription = document.getElementById('jobDescription').value;
+            const jobType = document.getElementById('jobType').value;
+
+            try {
+                const response = await fetch('/employer/add-job', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        companyName,
+                        companyAddress,
+                        jobTitle,
+                        jobDescription,
+                        jobType
+                    })
+                });
+                console.log('success');
+            } catch (error) {
+                console.error('Error adding job:', error);
+                alert('Error adding job. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

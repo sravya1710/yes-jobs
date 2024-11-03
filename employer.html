@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style">
+    <title>Employer Dashboard</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome to Employer Dashboard !</h1>
+        <div class="image-container">
+            <img src="https://www.culturemonkey.io/employee-engagement/content/images/2023/10/ways-to-enhance-the-employer-employee-relationship.png" alt="Centered Image">
+        </div>
+        <br>
+        <div class="center">
+        <button class="button1" id ="viewJobsButton">View Job Applications</button></br>
+        <button class="button1" id =addJobButton>Add Job</button>
+    </div>
+        </div>
+   
+    
+    
+
+    <script>
+        const viewJobsButton = document.getElementById('viewJobsButton');
+        const addJobButton = document.getElementById('addJobButton');
+
+        viewJobsButton.addEventListener('click', () => {
+            window.location.href = '/view-jobs.html'; // Open the View Jobs page
+        });
+
+        addJobButton.addEventListener('click', () => {
+            window.location.href = '/employer/add-job'; // Show the Add Job form
+        });
+
+    </script>
+</body>
+</html>
